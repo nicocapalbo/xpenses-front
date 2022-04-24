@@ -68,7 +68,8 @@ export default {
       local: false,
       auth0: {
         domain: process.env.AUTH0_DOMAIN,
-        clientId: process.env.AUTH0_CLIENT_ID
+        clientId: process.env.AUTH0_CLIENT_ID,
+        logoutRedirectUri: 'http://localhost:3000'
       }
     }
   },
