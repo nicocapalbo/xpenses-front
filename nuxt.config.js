@@ -1,4 +1,19 @@
+// require('dotenv').config()
+
 export default {
+  // Target: https://go.nuxtjs.dev/config-target
+  target: 'static',
+  ssr: false,
+  render: {
+    asyncScripts: true
+  },
+  loading: false,
+  // vue: {
+  //   config: {
+  //     productionTip: false,
+  //     devtools: process.env.NODE_ENV !== 'production'
+  //   }
+  // },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'xpenses-front',
@@ -29,7 +44,8 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/dotenv'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -37,9 +53,28 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/auth-next'
   ],
 
+  auth: {
+    redirect: {
+      login: '/login', // redirect user when not connected
+      callback: '/'
+    },
+    fullPathRedirect: true,
+    rewriteRedirects: true,
+    strategies: {
+      local: false,
+      auth0: {
+        domain: process.env.AUTH0_DOMAIN,
+        clientId: process.env.AUTH0_CLIENT_ID
+      }
+    }
+  },
+  // router: {
+  //   middleware: ['auth']
+  // },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
