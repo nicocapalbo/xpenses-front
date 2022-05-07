@@ -65,13 +65,20 @@ export default {
     fullPathRedirect: true,
     rewriteRedirects: true,
     strategies: {
-      local: false,
+      // local: false,
       auth0: {
         domain: process.env.AUTH0_DOMAIN,
         clientId: process.env.AUTH0_CLIENT_ID,
+        audience: process.env.AUTH0_AUDIENCE,
         logoutRedirectUri: 'http://localhost:3000'
+        // scope: ['openid', 'profile', 'email']
       }
-    }
+    },
+    token: {
+      prefix: '_token.',
+      global: true
+    },
+    localStorage: true
   },
   // router: {
   //   middleware: ['auth']
@@ -79,7 +86,10 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/'
+    // baseURL: '/'
+    baseURL: 'http://localhost:3001',
+    proxyHeaders: false,
+    credentials: false
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
